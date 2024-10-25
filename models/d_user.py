@@ -7,7 +7,7 @@ from models.global_base import Base
 
 class User(Base):
     __tablename__ = "d_user"
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, autoincrement=True, primary_key=True)
     telegram_id = Column(BigInteger, nullable=False, index=True)
     telegram_username = Column(String(length=100), nullable=True, index=True)
     created_at = Column(TIMESTAMP, default=datetime.utcnow(), index=True)
