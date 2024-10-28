@@ -6,7 +6,7 @@ sys.path.append("..")
 from sqlalchemy import select, update
 from sqlalchemy.orm import sessionmaker
 from ..models.d_user import User
-from ..models.topics_video import Topics_video
+from ..models.classes_and_subjects import Classes_and_subjects
 from ..models.topics_lessons import Topics_lessons
 from sqlalchemy import create_engine
 
@@ -64,19 +64,22 @@ class GlobalDb():
         try:
             with self.sessionmaker() as session:
                 records = session.execute(
-                    select(Topics_video.topic).
-                    where(Topics_video.d_class == d_class, Topics_video.subject == subject)
+                    select(Classes_and_subjects.topic).
+                    where(Classes_and_subjects.d_class == d_class, Classes_and_subjects.subject == subject)
                 ).scalars().all()  # Получаем все темы
                 return records  # Возвращаем список тем
         except Exception as e:
             print(f"Ошибка при получении тем в классе {d_class}, в предмете {subject}: {e}")
             return [f"Ошибка при получении тем в классе {d_class}, в предмете {subject}: {e}"]
 
-    def get_all_subjects(self):
+    from sqlalchemy import select
+
+    def get_all_subjects(self, d_class: int):
         try:
             with self.sessionmaker() as session:
                 records = session.execute(
-                    select(Topics_video.subject).
+                    select(Classes_and_subjects.subject).
+                    where(Classes_and_subjects.d_class == d_class).
                     distinct()  # Получаем уникальные предметы
                 ).scalars().all()  # Получаем список всех предметов
                 return records
@@ -89,7 +92,7 @@ class GlobalDb():
         try:
             with self.sessionmaker() as session:
                 records = session.execute(
-                    select(Topics_video.d_class).
+                    select(Classes_and_subjects.d_class).
                     distinct()  # Получаем уникальные классы
                 ).scalars().all()  # Получаем список всех классов
                 return records

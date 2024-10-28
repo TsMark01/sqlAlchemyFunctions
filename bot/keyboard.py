@@ -9,13 +9,17 @@ def get_markup_classes():
     classes = db.get_all_classes()
 
     for i in classes:
-        temp_markup = types.InlineKeyboardButton(text=str(i), callback_data=f'{str(i)}')
+        temp_markup = types.InlineKeyboardButton(text=str(i), callback_data=f'')
         markup_classes.add(temp_markup)
 
     return markup_classes
 
-def get_markup_subjects():
+def get_markup_subjects(d_class):
     markup_subjects = types.InlineKeyboardMarkup(row_width=2)
-    subjects = db.get_all_subjects()
+    subjects = db.get_all_subjects(d_class)
+
+    for i in subjects:
+        temp_markup =
+
 
 
