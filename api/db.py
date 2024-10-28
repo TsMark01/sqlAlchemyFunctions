@@ -1,14 +1,17 @@
 import sys
-from global_config import SQLALCHEMY_DATABASE_URL
-from models.global_base import Base
+from ..models.global_config import SQLALCHEMY_DATABASE_URL
+from ..models.global_base import Base
+
 sys.path.append("..")
-from sqlalchemy import select, update, text, and_, or_
+from sqlalchemy import select, update
 from sqlalchemy.orm import sessionmaker
-from models.d_user import User
-from models.topics_video import Topics_video
-from models.topics_lesoons import Topics_lessons
+from ..models.d_user import User
+from ..models.topics_video import Topics_video
+from ..models.topics_lessons import Topics_lessons
+from sqlalchemy import create_engine
 
 import datetime
+
 
 class GlobalDb():
     def __init__(self):
@@ -16,7 +19,7 @@ class GlobalDb():
         Base.metadata.create_all(bind=self.engine)
         self.sessionmaker = sessionmaker(autocommit=False, autoflush=False, bind=self.engine)
 
-    def insertuser(self, telegram_id, telegram_username, created_at, updated_at, last_active_at, is_active, is_paid, ref_src, parent_id):
+    def insertuser(self, telegram_id, telegram_username, is_active, is_paid, ref_src, parent_id):
         try:
             with self.sessionmaker() as session:
                 newuser = User(
@@ -122,8 +125,5 @@ class GlobalDb():
         except Exception as e:
             print(f"Ошибка при получении URL для урока '{lesson}' и темы '{topic}': {e}")
             return [f"Ошибка при получении URL для урока '{lesson}' и темы '{topic}': {e}"]
-
-
-
 
 

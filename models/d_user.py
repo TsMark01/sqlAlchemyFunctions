@@ -3,7 +3,7 @@ from sqlalchemy import Column, String, Boolean, Integer, TIMESTAMP, BigInteger
 
 import sys
 sys.path.append("..")
-from models.global_base import Base
+from global_base import Base
 
 class User(Base):
     __tablename__ = "d_user"
