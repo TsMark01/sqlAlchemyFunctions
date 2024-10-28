@@ -1,4 +1,3 @@
-
 import sys
 from global_config import SQLALCHEMY_DATABASE_URL
 from models.global_base import Base
@@ -123,9 +122,6 @@ class GlobalDb():
         except Exception as e:
             print(f"Ошибка при получении URL для урока '{lesson}' и темы '{topic}': {e}")
             return [f"Ошибка при получении URL для урока '{lesson}' и темы '{topic}': {e}"]
-
-
-
 
 
 
